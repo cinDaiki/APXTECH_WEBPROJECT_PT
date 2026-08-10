@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Waste Reducer &amp; Sharing Guide — Sustainable Living Initiative</title>
+  <meta name="description" content="Empowering households to reduce food waste, extend grocery shelf life, save money, and share surplus food with local communities.">
+  <script>
+    (function() {
+      document.documentElement.classList.add('preload');
+      var storedTheme = localStorage.getItem('theme');
+      var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var currentTheme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', currentTheme);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-box" id="site-logo">
+        <img src="images/logo.svg" alt="Food Waste Reducer Logo" width="26" height="26">
+        <span>Food Reducer</span>
+      </a>
+
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+        Menu
+      </button>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="about.html">About &amp; Guide</a></li>
+          <li><a href="quiz.html">Impact Calculator</a></li>
+          <li>
+            <button type="button" class="theme-toggle-btn" aria-label="Toggle Dark and Light Mode">
+              <span class="theme-toggle-icon sun-icon">Light</span>
+              <span class="theme-toggle-icon moon-icon">Dark</span>
+            </button>
+          </li>
+          <li><a href="quiz.html" class="btn btn-primary header-cta">Start Calculator</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <span class="section-tag">Sustainable Living Initiative</span>
+        <h1>Small Changes. Less Waste. A Better Future.</h1>
+        <p>Simple, actionable strategies to audit household food waste, extend fresh produce shelf life, save money on groceries, and share surplus food with your community.</p>
+
+        <div class="hero-actions">
+          <a href="quiz.html" class="btn btn-primary">Calculate My Impact</a>
+          <a href="about.html" class="btn btn-secondary">Explore Food Guide</a>
+        </div>
+      </div>
+
+      <div class="hero-image-col">
+        <img src="images/hero-kitchen.png" alt="Zero Waste Kitchen and Fresh Produce Storage" class="hero-img glass-frame" width="500" height="340">
+      </div>
+    </section>
+
+    <!-- Core Solutions / Features Section -->
+    <section class="features-section">
+      <span class="section-tag">Our Solutions</span>
+      <h2>Simple Actions for a Sustainable Household</h2>
+
+      <div class="card-grid">
+        
+        <article class="feature-card glass-card">
+          <div class="card-image-wrap">
+            <img src="images/pantry-storage.png" alt="Smart Food Storage Techniques" class="card-feature-img">
+          </div>
+          <header>
+            <div class="icon-placeholder">01</div>
+            <h3>Smart Food Storage</h3>
+          </header>
+          <p>Learn optimal temperature zones and produce preservation techniques to double your fresh food's shelf life and prevent premature spoilage.</p>
+          <footer>
+            <a href="about.html#storage" class="btn btn-secondary">Storage Guide</a>
+          </footer>
+        </article>
+
+        <article class="feature-card glass-card">
+          <div class="card-image-wrap">
+            <img src="images/fridge-zones.png" alt="Interactive Food Waste Calculator" class="card-feature-img">
+          </div>
+          <header>
+            <div class="icon-placeholder">02</div>
+            <h3>Interactive Impact Calculator</h3>
+          </header>
+          <p>Estimate your household's annual grocery savings and carbon footprint reduction in real time with our customized assessment tool.</p>
+          <footer>
+            <a href="quiz.html" class="btn btn-primary">Calculate Impact</a>
+          </footer>
+        </article>
+
+        <article class="feature-card glass-card">
+          <div class="card-image-wrap">
+            <img src="images/community-sharing.png" alt="Community Food Sharing Networks" class="card-feature-img">
+          </div>
+          <header>
+            <div class="icon-placeholder">03</div>
+            <h3>Community Sharing</h3>
+          </header>
+          <p>Connect with local food banks, neighborhood fridges, and surplus redistribution networks to ensure no good food goes to waste.</p>
+          <footer>
+            <a href="about.html#sharing" class="btn btn-secondary">Explore Networks</a>
+          </footer>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Impact & Value Highlights Grid -->
+    <section class="features-section" style="margin-top: 40px;">
+      <span class="section-tag">Why It Matters</span>
+      <h2>The Real Impact of Household Food Action</h2>
+      
+      <div class="card-grid">
+        <article class="glass-card" style="padding: 24px;">
+          <div class="icon-placeholder" style="background: rgba(16, 185, 129, 0.15); color: var(--primary);">01</div>
+          <h3 style="font-size: 19px; margin-bottom: 8px;">Financial Savings</h3>
+          <p style="font-size: 14.5px; color: var(--text-muted);">An average family of four can save over $1,500 every year simply by reducing food wastage and planning meals effectively.</p>
+        </article>
+
+        <article class="glass-card" style="padding: 24px;">
+          <div class="icon-placeholder" style="background: rgba(16, 185, 129, 0.15); color: var(--primary);">02</div>
+          <h3 style="font-size: 19px; margin-bottom: 8px;">Environmental Climate Benefit</h3>
+          <p style="font-size: 14.5px; color: var(--text-muted);">Food waste in landfills generates methane gas. Reducing household waste is one of the most effective personal climate actions.</p>
+        </article>
+
+        <article class="glass-card" style="padding: 24px;">
+          <div class="icon-placeholder" style="background: rgba(16, 185, 129, 0.15); color: var(--primary);">03</div>
+          <h3 style="font-size: 19px; margin-bottom: 8px;">Community Solidarity</h3>
+          <p style="font-size: 14.5px; color: var(--text-muted);">Surplus unopened pantry items and homegrown produce can directly support neighbors and local food pantries in need.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Animated Metrics Bar -->
+    <section class="metrics-bar glass-bar" aria-label="Project Statistics">
+      <div class="metrics-grid">
+        <article class="metric-item">
+          <p class="metric-number" data-target="1240" data-suffix=" kg">0 kg</p>
+          <p class="metric-label">Food Saved Annually</p>
+        </article>
+        <article class="metric-item">
+          <p class="metric-number" data-target="3450">0</p>
+          <p class="metric-label">Meals Shared with Neighbors</p>
+        </article>
+        <article class="metric-item">
+          <p class="metric-number" data-target="850" data-suffix="+">0+</p>
+          <p class="metric-label">Active Participating Families</p>
+        </article>
+        <article class="metric-item">
+          <p class="metric-number" data-target="14200" data-prefix="$">$0</p>
+          <p class="metric-label">Household Grocery Money Saved</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <section class="footer-brand">
+        <a href="index.html" class="logo-box">
+          <img src="images/logo.svg" alt="Food Waste Reducer Logo" width="22" height="22">
+          <span>Food Reducer</span>
+        </a>
+        <p>Empowering households with practical guides, real-time calculators, and community sharing links to eliminate food waste.</p>
+      </section>
+
+      <section class="footer-links">
+        <h4>Quick Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home Overview</a></li>
+          <li><a href="about.html">Educational Preservation Guide</a></li>
+          <li><a href="quiz.html">Interactive Impact Calculator</a></li>
+        </ul>
+      </section>
+
+      <section class="footer-newsletter">
+        <h4>Sustainability Newsletter</h4>
+        <form>
+          <label for="newsletter-email">Receive weekly storage tips and seasonal guides:</label>
+          <input type="email" id="newsletter-email" placeholder="Enter your email address..." class="select-control" required>
+          <button type="submit" class="btn btn-primary" style="margin-top: 6px;">Subscribe</button>
+        </form>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Food Waste Reducer &amp; Sharing Guide. Household Sustainability Project.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Waste Reducer — Complete Educational Preservation Guide</title>
+  <meta name="description" content="Comprehensive educational guide on household food waste reduction, storage best practices, date label meanings, and community food sharing.">
+  <script>
+    (function() {
+      document.documentElement.classList.add('preload');
+      var storedTheme = localStorage.getItem('theme');
+      var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var currentTheme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', currentTheme);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.svg" alt="Food Waste Reducer Logo" width="26" height="26">
+        <span>Food Reducer</span>
+      </a>
+
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">Menu</button>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About &amp; Guide</a></li>
+          <li><a href="quiz.html">Impact Calculator</a></li>
+          <li>
+            <button type="button" class="theme-toggle-btn" aria-label="Toggle Dark and Light Mode">
+              <span class="theme-toggle-icon sun-icon">Light</span>
+              <span class="theme-toggle-icon moon-icon">Dark</span>
+            </button>
+          </li>
+          <li><a href="quiz.html" class="btn btn-primary header-cta">Start Calculator</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="content-layout">
+
+    <!-- Desktop Sticky Sidebar Table of Contents -->
+    <aside class="toc-sidebar glass-panel" aria-label="Table of Contents">
+      <h3>Table of Contents</h3>
+      <ul class="toc-list">
+        <li><a href="#intro">1. The Global Challenge</a></li>
+        <li><a href="#storage">2. Proper Storage Guide</a></li>
+        <li><a href="#dates">3. Understanding Dates</a></li>
+        <li><a href="#sharing">4. Sharing Networks</a></li>
+      </ul>
+      <div class="toc-action">
+        <button type="button" class="btn btn-secondary" id="download-pdf-btn">Download PDF Guide</button>
+      </div>
+    </aside>
+
+    <!-- Main Article Document -->
+    <article class="article-body glass-article">
+
+      <!-- Mobile Table of Contents Accordion -->
+      <section class="mobile-toc-accordion" style="display: none;">
+        <button type="button" class="btn btn-secondary" id="toc-accordion-btn" style="width: 100%; justify-content: space-between;">
+          <span>Navigation Table of Contents</span>
+          <span class="arrow">▼ Show Menu</span>
+        </button>
+        <div id="toc-accordion-content" style="display: none; margin-top: 12px; padding: 14px; background: var(--input-bg); border-radius: 12px;">
+          <ul class="toc-list">
+            <li><a href="#intro">1. The Global Challenge</a></li>
+            <li><a href="#storage">2. Proper Storage Guide</a></li>
+            <li><a href="#dates">3. Understanding Dates</a></li>
+            <li><a href="#sharing">4. Sharing Networks</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <span class="section-tag">Educational Resource Guide</span>
+      <h1>Complete Food Waste Prevention &amp; Preservation Guide</h1>
+
+      <div class="article-meta">
+        <span>Published by: <strong>Sustainability Research Group</strong></span>
+        <span>• Last Updated: <strong>August 2026</strong></span>
+        <span>• Estimated Read Time: <strong>5 Mins</strong></span>
+      </div>
+
+      <figure class="article-figure">
+        <img src="images/global-impact.png" alt="Global Food Waste Impact Overview" width="750" height="340" class="article-img glass-frame">
+        <figcaption>Figure 1: Global annual household food waste statistics and economic impact.</figcaption>
+      </figure>
+
+      <!-- Section 1: Introduction -->
+      <section id="intro">
+        <h2>1. The Global Food Waste Challenge</h2>
+        <p>Approximately 1.3 billion tons—nearly one-third of all food produced globally for human consumption—gets lost or wasted each year. In household kitchens, simple adjustments to purchasing habits and storage routines can divert hundreds of kilograms of organic waste from landfills annually while saving significant grocery dollars.</p>
+
+        <aside class="callout-box glass-callout">
+          <p><strong>Key Impact Statistic:</strong> An average four-person household throws away over $1,500 worth of edible groceries each year. Small daily changes in storage habits can preserve over 80% of this food.</p>
+        </aside>
+      </section>
+
+      <!-- Section 2: Storage Guide & Tabs -->
+      <section id="storage" style="margin-top: 36px;">
+        <h2>2. Proper Food Storage &amp; Preservation Guide</h2>
+        <p>Storing produce under optimal temperature and humidity conditions significantly extends freshness and prevents premature spoilage.</p>
+
+        <!-- Storage Filter Tabs -->
+        <div class="tab-navigation" aria-label="Storage Guide Tabs">
+          <button type="button" class="tab-btn active" data-tab="all">All Storage Tips</button>
+          <button type="button" class="tab-btn" data-tab="pantry">Pantry Essentials</button>
+          <button type="button" class="tab-btn" data-tab="fridge">Refrigerator Zones</button>
+          <button type="button" class="tab-btn" data-tab="freezer">Freezer Preservation</button>
+        </div>
+
+        <div class="tab-content-panel active" id="tab-pantry">
+          <div class="two-col-grid">
+            <article class="storage-card glass-card">
+              <figure>
+                <img src="images/pantry-storage.png" alt="Pantry Storage Guide" width="300" height="180" class="guide-img glass-frame">
+              </figure>
+              <h4>Pantry Best Practices</h4>
+              <p>Keep potatoes, onions, garlic, and squash in cool, dry, dark cabinets. Always store potatoes and onions in separate containers—onions emit ethylene gas which causes potatoes to sprout rapidly.</p>
+            </article>
+
+            <article class="storage-card glass-card">
+              <figure>
+                <img src="images/fridge-zones.png" alt="Refrigerator Temperature Zones" width="300" height="180" class="guide-img glass-frame">
+              </figure>
+              <h4>Refrigerator Temperature Zones</h4>
+              <p>Maintain your refrigerator temperature at or below 4°C (40°F). Store raw meats on lower shelves to prevent drips, dairy products on upper shelves for steady temperature, and leafy greens in crisping drawers.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="tab-content-panel" id="tab-freezer">
+          <article class="storage-card glass-card" style="margin-top: 14px;">
+            <h4>Freezer Preservation Techniques</h4>
+            <p>Freeze surplus bread, chopped vegetables, berries, and leftover soups in airtight container portions. Label containers with dates. Freezing acts as a natural pause button, keeping food safe indefinitely.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 3: Date Labels Accordion -->
+      <section id="dates" style="margin-top: 36px;">
+        <h2>3. Decoding Food Expiration Date Labels</h2>
+        <p>Confusion over date label terminology leads to unnecessary disposal of perfectly safe food products. Click each label type below to learn what it actually means:</p>
+
+        <div class="accordion-group">
+          
+          <div class="accordion-item active">
+            <button type="button" class="accordion-header" aria-expanded="true">
+              <span>Best If Used By / Best Before</span>
+              <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+              <p>This date indicates when a product will be at peak flavor and quality. <strong>It is NOT a safety deadline.</strong> Products are safe to consume after this date if properly stored and showing no signs of spoilage (bad odor, mold, or unusual texture).</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" aria-expanded="false">
+              <span>Use By</span>
+              <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+              <p>The last date recommended by manufacturers for peak quality. The only exception is infant formula, where "Use By" represents a safety deadline. For standard groceries, evaluate food visually and by smell before deciding to discard.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" aria-expanded="false">
+              <span>Sell By</span>
+              <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+              <p>A retail inventory management date meant for store staff to track shelf rotation. It is not intended for consumers. Food remains fresh and safe to eat for days or even weeks past the "Sell By" date if kept refrigerated.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section 4: Community Sharing Networks -->
+      <section id="sharing" style="margin-top: 36px;">
+        <h2>4. Community Food Sharing Networks</h2>
+        <p>If you have unopened canned goods, non-perishable staples, or excess garden produce, local food sharing networks ensure surplus items nourish those in need.</p>
+        
+        <div class="sharing-grid">
+          <div class="sharing-card">
+            <h4>Local Food Pantries</h4>
+            <p>Accept unopened canned goods, pasta, rice, and sealed dry goods before expiration dates.</p>
+          </div>
+          <div class="sharing-card">
+            <h4>Community Fridges</h4>
+            <p>Public neighborhood refrigerators where residents drop off fresh fruit, vegetables, and sealed meals.</p>
+          </div>
+          <div class="sharing-card">
+            <h4>Food Sharing Apps</h4>
+            <p>Connect neighbor-to-neighbor to post excess bakery items or homegrown produce for free pickup.</p>
+          </div>
+        </div>
+
+        <figure class="article-figure" style="margin-top: 24px;">
+          <img src="images/community-sharing.png" alt="Community Food Sharing Networks" width="750" height="320" class="article-img glass-frame">
+          <figcaption>Figure 2: Neighbor-to-neighbor food sharing and community pantry initiative.</figcaption>
+        </figure>
+
+        <div style="margin-top: 28px; text-align: center;">
+          <a href="quiz.html" class="btn btn-primary" style="padding: 14px 32px; font-size: 16px;">Calculate Your Household Waste Impact →</a>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <section class="footer-brand">
+        <a href="index.html" class="logo-box">
+          <img src="images/logo.svg" alt="Food Waste Reducer Logo" width="22" height="22">
+          <span>Food Reducer</span>
+        </a>
+        <p>Empowering households with practical guides, real-time calculators, and community sharing links to eliminate food waste.</p>
+      </section>
+
+      <section class="footer-links">
+        <h4>Quick Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home Overview</a></li>
+          <li><a href="about.html">Educational Preservation Guide</a></li>
+          <li><a href="quiz.html">Interactive Impact Calculator</a></li>
+        </ul>
+      </section>
+
+      <section class="footer-newsletter">
+        <h4>Sustainability Newsletter</h4>
+        <form>
+          <label for="newsletter-email-about">Receive weekly storage tips and seasonal guides:</label>
+          <input type="email" id="newsletter-email-about" placeholder="Enter your email address..." class="select-control" required>
+          <button type="submit" class="btn btn-primary" style="margin-top: 6px;">Subscribe</button>
+        </form>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Food Waste Reducer &amp; Sharing Guide. Educational Guide Page.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

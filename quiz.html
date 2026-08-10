@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Waste Reducer — Household Impact Calculator</title>
+  <meta name="description" content="Interactive calculator for evaluating household food waste impact, potential financial grocery savings, and carbon footprint reduction in real time.">
+  <script>
+    (function() {
+      document.documentElement.classList.add('preload');
+      var storedTheme = localStorage.getItem('theme');
+      var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var currentTheme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', currentTheme);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.svg" alt="Food Waste Reducer Logo" width="26" height="26">
+        <span>Food Reducer</span>
+      </a>
+
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">Menu</button>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About &amp; Guide</a></li>
+          <li><a href="quiz.html" class="active">Impact Calculator</a></li>
+          <li>
+            <button type="button" class="theme-toggle-btn" aria-label="Toggle Dark and Light Mode">
+              <span class="theme-toggle-icon sun-icon">Light</span>
+              <span class="theme-toggle-icon moon-icon">Dark</span>
+            </button>
+          </li>
+          <li><a href="quiz.html" class="btn btn-primary header-cta">Start Calculator</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Progress Stepper Header -->
+  <section class="quiz-stepper">
+    <div class="stepper-header">
+      <span>Household Food Audit Assessment</span>
+      <span class="stepper-percentage">25% Complete</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill"></div>
+    </div>
+  </section>
+
+  <!-- Main Calculator Grid -->
+  <main class="quiz-layout">
+
+    <!-- Calculator Inputs Form Card -->
+    <section class="quiz-card">
+      <span class="section-tag">Household Inputs</span>
+      <h2>Calculate Your Waste &amp; Savings Impact</h2>
+      <p style="color: var(--text-muted); font-size: 14.5px; margin-bottom: 24px;">Adjust the inputs below to see your estimated financial savings and carbon reduction update in real time.</p>
+
+      <form id="food-quiz-form" onsubmit="event.preventDefault();">
+
+        <!-- Input 1: Household Size -->
+        <fieldset class="form-group" style="border: none;">
+          <legend>1. Number of people in your household:</legend>
+          <div class="radio-group-grid">
+            <label class="radio-card-option">
+              <input type="radio" name="household_size" value="1">
+              <span class="radio-label">1 Person</span>
+              <span class="radio-sublabel">Single</span>
+            </label>
+
+            <label class="radio-card-option">
+              <input type="radio" name="household_size" value="2" checked>
+              <span class="radio-label">2 People</span>
+              <span class="radio-sublabel">Couple</span>
+            </label>
+
+            <label class="radio-card-option">
+              <input type="radio" name="household_size" value="4">
+              <span class="radio-label">3-4 People</span>
+              <span class="radio-sublabel">Family</span>
+            </label>
+
+            <label class="radio-card-option">
+              <input type="radio" name="household_size" value="6">
+              <span class="radio-label">5+ People</span>
+              <span class="radio-sublabel">Large</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Input 2: Weekly Uneaten Food Tossed -->
+        <div class="form-group">
+          <label for="waste-slider">2. Estimated weekly uneaten food tossed out:</label>
+          <input type="range" id="waste-slider" class="range-control" min="0.5" max="10.0" step="0.5" value="2.5">
+          <div>
+            <span id="waste-slider-badge" class="slider-value-badge">2.5 kg / week</span>
+          </div>
+        </div>
+
+        <!-- Input 3: Meal Planning Days -->
+        <div class="form-group">
+          <label for="prep-slider">3. Days per week you plan meals in advance:</label>
+          <input type="range" id="prep-slider" class="range-control" min="0" max="7" step="1" value="3">
+          <div>
+            <span id="prep-slider-badge" class="slider-value-badge">3 Days / week</span>
+          </div>
+        </div>
+
+        <!-- Input 4: Household Preservation Habits -->
+        <fieldset class="form-group" style="border: none;">
+          <legend>4. Existing food preservation habits:</legend>
+          <div class="radio-option-list">
+            <label>
+              <input type="checkbox" name="habit_compost">
+              <span>We compost organic food scraps</span>
+            </label>
+            <label>
+              <input type="checkbox" name="habit_freeze" checked>
+              <span>We freeze leftovers regularly</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="reset-calc-btn">Reset Calculator</button>
+          <a href="about.html" class="btn btn-primary">Read Preservation Guide</a>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- Results Live Dashboard -->
+    <section class="quiz-card results-dashboard">
+      <span class="section-tag">Impact Summary</span>
+      <h3>Your Real-Time Environmental Impact</h3>
+      <p style="color: var(--text-muted); font-size: 14.5px;">Updates dynamically based on your household form selections on the left.</p>
+
+      <!-- SVG Visual Gauge Meter -->
+      <div class="gauge-container">
+        <svg class="gauge-svg" viewBox="0 0 160 160">
+          <defs>
+            <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#10b981" />
+              <stop offset="100%" stop-color="#059669" />
+            </linearGradient>
+          </defs>
+          <circle class="gauge-bg" cx="80" cy="80" r="70" />
+          <circle class="gauge-fill" id="gauge-fill-circle" cx="80" cy="80" r="70" />
+        </svg>
+        <div class="gauge-center-text">
+          <div class="gauge-value" id="gauge-value-display">2.5 kg</div>
+          <p class="gauge-label" id="gauge-label-display">Weekly Waste</p>
+        </div>
+      </div>
+
+      <!-- Key Metrics Display Grid -->
+      <div class="metrics-grid" style="grid-template-columns: 1fr 1fr; gap: 14px;">
+        <article class="metric-item" style="padding: 16px;">
+          <div class="metric-number" id="stat-weekly-waste" style="font-size: 24px;">2.5 kg</div>
+          <p class="metric-label">Weekly Food Waste</p>
+        </article>
+
+        <article class="metric-item" style="padding: 16px;">
+          <div class="metric-number" id="stat-annual-waste" style="font-size: 24px;">130 kg</div>
+          <p class="metric-label">Annual Waste Total</p>
+        </article>
+
+        <article class="metric-item" style="padding: 16px;">
+          <div class="metric-number" id="stat-money-saved" style="font-size: 24px;">$936</div>
+          <p class="metric-label">Potential Grocery Savings / yr</p>
+        </article>
+
+        <article class="metric-item" style="padding: 16px;">
+          <div class="metric-number" id="stat-co2-saved" style="font-size: 24px;">325 kg</div>
+          <p class="metric-label">Annual CO2 Reduced</p>
+        </article>
+      </div>
+
+      <!-- Actionable Recommendation Box -->
+      <aside class="recommendation-box">
+        <h4>Personalized Recommendation:</h4>
+        <p id="dynamic-tip-text" style="font-size: 14.5px; color: var(--text-main);">
+          Planning meals just 2 extra days a week can reduce household food waste by up to 25% and save $300+ annually!
+        </p>
+      </aside>
+
+      <div class="calculator-actions">
+        <button type="button" class="btn btn-primary" id="share-results-btn" style="width: 100%;">
+          Share Impact Results
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <section class="footer-brand">
+        <a href="index.html" class="logo-box">
+          <img src="images/logo.svg" alt="Food Waste Reducer Logo" width="22" height="22">
+          <span>Food Reducer</span>
+        </a>
+        <p>Empowering households with practical guides, real-time calculators, and community sharing links to eliminate food waste.</p>
+      </section>
+
+      <section class="footer-links">
+        <h4>Quick Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home Overview</a></li>
+          <li><a href="about.html">Educational Preservation Guide</a></li>
+          <li><a href="quiz.html">Interactive Impact Calculator</a></li>
+        </ul>
+      </section>
+
+      <section class="footer-newsletter">
+        <h4>Sustainability Newsletter</h4>
+        <form>
+          <label for="newsletter-email-quiz">Receive weekly storage tips and seasonal guides:</label>
+          <input type="email" id="newsletter-email-quiz" placeholder="Enter your email address..." class="select-control" required>
+          <button type="submit" class="btn btn-primary" style="margin-top: 6px;">Subscribe</button>
+        </form>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Food Waste Reducer &amp; Sharing Guide. Household Impact Assessment.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
