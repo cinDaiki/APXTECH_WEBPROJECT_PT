@@ -159,11 +159,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .logo-img {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
-  border-radius: 6px;
+  border-radius: 50%;
   display: inline-block;
+  background: transparent;
+  transition: transform 0.25s ease;
+}
+
+.logo-box:hover .logo-img {
+  transform: rotate(12deg) scale(1.1);
 }
 
 .logo-box .logo-highlight {
