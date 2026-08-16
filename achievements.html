@@ -16,12 +16,12 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo-box">
-        <span style="font-size: 1.4rem;">🌱</span>
+        <img src="images/acd.jfif" alt="ACD Logo" class="logo-img" width="34" height="34">
         <span>Food Reducer <span class="logo-highlight">&amp; Sharing</span></span>
         <span class="logo-badge">ACD</span>
       </a>
 
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu">
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
         ☰ Menu
       </button>
 
@@ -56,20 +56,20 @@
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
           <div>
             <span class="section-tag">Gamified Level</span>
-            <h2>Level 3 — Food Saver</h2>
+            <h2 class="user-level-title">Level 3 — Food Saver</h2>
           </div>
           <div class="acd-badge" style="font-size: 0.95rem; padding: 8px 18px;">
-            🌱 85 Total Eco Points
+            🌱 <span class="eco-points-val">85</span> Total Eco Points
           </div>
         </div>
 
         <div class="progress-bar-track">
-          <div class="progress-bar-fill" style="width: 80%;"></div>
+          <div class="progress-fill user-level-fill" style="width: 80%;"></div>
         </div>
 
         <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted);">
           <span>Level 1: Seedling</span>
-          <span style="font-weight: 700; color: var(--primary);">80% to Level 4 (Steward Champion)</span>
+          <span style="font-weight: 700; color: var(--primary);" class="user-level-percentage">80% to Level 4</span>
           <span>Level 5: Creation Care Hero</span>
         </div>
       </div>
@@ -84,51 +84,51 @@
 
       <div class="badges-grid">
         <!-- Badge 1 -->
-        <div class="badge-card unlocked">
+        <div class="badge-card unlocked" data-badge-id="first_step">
           <div style="font-size: 2.5rem; margin-bottom: 8px;">🌱</div>
           <h3>First Step</h3>
           <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Started your Food Waste Journey</p>
-          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--primary);">✅ Unlocked</div>
+          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--primary);" class="badge-status">✅ Unlocked</div>
         </div>
 
         <!-- Badge 2 -->
-        <div class="badge-card unlocked">
+        <div class="badge-card unlocked" data-badge-id="sorting_pro">
           <div style="font-size: 2.5rem; margin-bottom: 8px;">♻️</div>
           <h3>Sorting Pro</h3>
           <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Mastered waste segregation in "Sort It!"</p>
-          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--primary);">✅ Unlocked</div>
+          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--primary);" class="badge-status">✅ Unlocked</div>
         </div>
 
         <!-- Badge 3 -->
-        <div class="badge-card unlocked">
+        <div class="badge-card unlocked" data-badge-id="food_saver">
           <div style="font-size: 2.5rem; margin-bottom: 8px;">🍚</div>
           <h3>Food Saver</h3>
           <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Earned 70+ Eco Points</p>
-          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--primary);">✅ Unlocked</div>
+          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--primary);" class="badge-status">✅ Unlocked</div>
         </div>
 
         <!-- Badge 4 -->
-        <div class="badge-card locked">
+        <div class="badge-card locked" data-badge-id="smart_planner">
           <div style="font-size: 2.5rem; margin-bottom: 8px;">🥕</div>
           <h3>Smart Planner</h3>
           <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Planned weekly meals in advance</p>
-          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--muted);">🔒 Locked (Week 4)</div>
+          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--muted);" class="badge-status">🔒 Locked</div>
         </div>
 
         <!-- Badge 5 -->
-        <div class="badge-card locked">
+        <div class="badge-card locked" data-badge-id="food_sharer">
           <div style="font-size: 2.5rem; margin-bottom: 8px;">🤝</div>
           <h3>Food Sharer</h3>
           <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Shared surplus food with community pantry</p>
-          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--muted);">🔒 Locked (Week 4)</div>
+          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--muted);" class="badge-status">🔒 Locked</div>
         </div>
 
         <!-- Badge 6 -->
-        <div class="badge-card locked">
+        <div class="badge-card locked" data-badge-id="creation_care">
           <div style="font-size: 2.5rem; margin-bottom: 8px;">🌍</div>
           <h3>Creation Care Champion</h3>
           <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Embodied ACD values across all categories</p>
-          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--muted);">🔒 Locked (Week 4)</div>
+          <div style="margin-top: 10px; font-weight: 700; font-size: 0.8rem; color: var(--muted);" class="badge-status">🔒 Locked</div>
         </div>
       </div>
     </section>
@@ -168,6 +168,7 @@
     </div>
   </footer>
 
+  <script src="js/script.js"></script>
 </body>
 
 </html>

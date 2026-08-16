@@ -3,6 +3,25 @@
    Comprehensive JavaScript Application Engine
    ========================================================================== */
 
+// Safe storage wrapper to prevent file:// protocol SecurityErrors in browsers
+const SafeStorage = {
+  memory: {},
+  getItem: (key) => {
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      return SafeStorage.memory[key] || null;
+    }
+  },
+  setItem: (key, val) => {
+    try {
+      localStorage.setItem(key, val);
+    } catch (e) {
+      SafeStorage.memory[key] = String(val);
+    }
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   // Remove preload class shortly after DOM ready to enable smooth transition animations
   requestAnimationFrame(() => {
@@ -12,12 +31,37 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     1. LocalStorage State & Gamification Engine
+     1. Mobile Drawer Navigation Toggle (Independent Handler)
+     ========================================================================== */
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const navLinks = document.getElementById('nav-links');
+
+  if (hamburgerBtn && navLinks) {
+    hamburgerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('active');
+      const isExpanded = navLinks.classList.contains('active');
+      hamburgerBtn.setAttribute('aria-expanded', isExpanded);
+      hamburgerBtn.textContent = isExpanded ? '✕ Close' : '☰ Menu';
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && e.target !== hamburgerBtn) {
+        navLinks.classList.remove('active');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        hamburgerBtn.textContent = '☰ Menu';
+      }
+    });
+  }
+
+  /* ==========================================================================
+     2. LocalStorage State & Gamification Engine
      ========================================================================== */
   const GameState = {
-    getPoints: () => parseInt(localStorage.getItem('acd_eco_points') || '0', 10),
+    getPoints: () => parseInt(SafeStorage.getItem('acd_eco_points') || '0', 10),
     setPoints: (val) => {
-      localStorage.setItem('acd_eco_points', val);
+      SafeStorage.setItem('acd_eco_points', val);
       updatePointsUI();
     },
     addPoints: (val, reason) => {
@@ -27,25 +71,31 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast(`+${val} Eco Points! ${reason || ''}`, 'success');
       checkLevelAndBadges();
     },
-    getRole: () => localStorage.getItem('acd_user_role') || 'student',
+    getRole: () => SafeStorage.getItem('acd_user_role') || 'student',
     setRole: (role) => {
-      localStorage.setItem('acd_user_role', role);
+      SafeStorage.setItem('acd_user_role', role);
       updateRoleUI();
     },
-    getUnlockedBadges: () => JSON.parse(localStorage.getItem('acd_unlocked_badges') || '["first_step"]'),
+    getUnlockedBadges: () => {
+      try {
+        return JSON.parse(SafeStorage.getItem('acd_unlocked_badges') || '["first_step"]');
+      } catch (e) {
+        return ["first_step"];
+      }
+    },
     unlockBadge: (badgeId, badgeName) => {
       const unlocked = GameState.getUnlockedBadges();
       if (!unlocked.includes(badgeId)) {
         unlocked.push(badgeId);
-        localStorage.setItem('acd_unlocked_badges', JSON.stringify(unlocked));
+        SafeStorage.setItem('acd_unlocked_badges', JSON.stringify(unlocked));
         showToast(`🏆 Badge Unlocked: ${badgeName}!`, 'success');
         triggerConfetti();
         updateBadgesUI();
       }
     },
-    isChallengeCompleted: (dateKey) => localStorage.getItem(`acd_challenge_${dateKey}`) === 'true',
+    isChallengeCompleted: (dateKey) => SafeStorage.getItem(`acd_challenge_${dateKey}`) === 'true',
     setChallengeCompleted: (dateKey) => {
-      localStorage.setItem(`acd_challenge_${dateKey}`, 'true');
+      SafeStorage.setItem(`acd_challenge_${dateKey}`, 'true');
     }
   };
 
@@ -111,11 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     2. Theme Management (Dark / Light Mode)
+     3. Theme Management (Dark / Light Mode)
      ========================================================================== */
   const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
-  const storedTheme = localStorage.getItem('theme');
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const storedTheme = SafeStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   let currentTheme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
   
   applyTheme(currentTheme);
@@ -123,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
   themeToggleBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', currentTheme);
+      SafeStorage.setItem('theme', currentTheme);
       applyTheme(currentTheme);
       showToast(`Switched to ${currentTheme === 'dark' ? 'Dark' : 'Light'} Mode`, 'info');
     });
@@ -139,21 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     3. Mobile Drawer Navigation & Quick Help Modal
+     4. Quick Help Floating Action Button Modal
      ========================================================================== */
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-  const navLinks = document.getElementById('nav-links');
-
-  if (hamburgerBtn && navLinks) {
-    hamburgerBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      const isExpanded = navLinks.classList.contains('active');
-      hamburgerBtn.setAttribute('aria-expanded', isExpanded);
-      hamburgerBtn.textContent = isExpanded ? '✕ Close' : '☰ Menu';
-    });
-  }
-
-  /* Quick Help Floating Action Button */
   const fabHelpBtn = document.getElementById('fab-quick-help');
   const quickHelpModal = document.getElementById('quick-help-modal');
   const closeHelpModal = document.getElementById('close-help-modal');
@@ -177,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     4. Toast Notification Helper
+     5. Toast Notification Helper
      ========================================================================== */
   function showToast(message, type = 'success') {
     let container = document.getElementById('toast-container');
@@ -201,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function triggerConfetti() {
-    // Lightweight visual pop effect
     const pop = document.createElement('div');
     pop.style.position = 'fixed';
     pop.style.top = '30%';
@@ -218,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     5. Role Selection Experience (`index.html`)
+     6. Role Selection Experience (`index.html`)
      ========================================================================== */
   const roleCards = document.querySelectorAll('.role-card[data-role]');
   roleCards.forEach(card => {
@@ -229,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
       card.classList.add('active-role');
       showToast(`Selected Role: ${selectedRole.toUpperCase()}!`, 'success');
       
-      // Smooth scroll to Food Waste Journey or redirect
       const journeySection = document.getElementById('food-journey-section');
       if (journeySection) {
         journeySection.scrollIntoView({ behavior: 'smooth' });
@@ -249,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     6. Food Waste Journey Interactive Steps (`index.html`)
+     7. Food Waste Journey Interactive Steps (`index.html`)
      ========================================================================== */
   const journeySteps = document.querySelectorAll('.journey-step-item');
   const journeyTitle = document.getElementById('journey-detail-title');
@@ -314,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     7. "Sort It!" Interactive Waste Segregation Mini-Game (`quiz.html`)
+     8. "Sort It!" Interactive Waste Segregation Mini-Game (`quiz.html`)
      ========================================================================== */
   const sortableItemsContainer = document.getElementById('draggable-items-container');
   const binCards = document.querySelectorAll('.bin-card[data-category]');
@@ -373,7 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
           showToast(`✅ Correct! ${currentSelectedSortItem.name} belongs in the ${targetCategory.toUpperCase()} bin!`, 'success');
           GameState.addPoints(5, 'Correct Sort');
           
-          // Remove sorted item
           const itemEl = sortableItemsContainer.querySelector(`[data-id="${currentSelectedSortItem.id}"]`);
           if (itemEl) itemEl.remove();
           currentSelectedSortItem = null;
@@ -381,7 +415,6 @@ document.addEventListener('DOMContentLoaded', () => {
           showToast(`❌ Incorrect! ${currentSelectedSortItem.name} does NOT belong in ${targetCategory.toUpperCase()}. Try again!`, 'warning');
         }
 
-        // Update Score Badge
         const scoreBadge = document.getElementById('sort-game-score');
         if (scoreBadge) {
           scoreBadge.textContent = `Score: ${gameScore} / ${SORT_ITEMS.length}`;
@@ -407,211 +440,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('Sorting game reset!', 'info');
       });
     }
-  }
-
-  /* ==========================================================================
-     8. "Myth or Fact?" Interactive Quiz Game (`quiz.html`)
-     ========================================================================== */
-  const MYTH_QUESTIONS = [
-    {
-      statement: '“All food past its printed date is automatically unsafe to consume.”',
-      isFact: false,
-      explanation: 'MYTH! "Best If Used By" dates indicate peak quality, NOT food safety. Always evaluate food visually and by smell before discarding.'
-    },
-    {
-      statement: '“Freezing food halts bacterial growth and acts as a natural pause button.”',
-      isFact: true,
-      explanation: 'FACT! Freezing food at 0°F (-18°C) keeps food safe indefinitely by inactivating microbes.'
-    },
-    {
-      statement: '“Storing onions and potatoes in the same basket keeps them fresh longer.”',
-      isFact: false,
-      explanation: 'MYTH! Onions emit ethylene gas which causes nearby potatoes to sprout and rot much faster. Store them separately!'
-    },
-    {
-      statement: '“Food waste in landfills generates methane gas, a potent greenhouse driver.”',
-      isFact: true,
-      explanation: 'FACT! Rotting food scraps in anaerobic landfills emit methane, making food waste reduction a major climate action.'
-    }
-  ];
-
-  let currentMythIdx = 0;
-  const mythStatementEl = document.getElementById('myth-statement-text');
-  const mythBtnMyth = document.getElementById('myth-btn-myth');
-  const mythBtnFact = document.getElementById('myth-btn-fact');
-  const mythExplanationEl = document.getElementById('myth-explanation-box');
-  const mythProgressEl = document.getElementById('myth-progress-lbl');
-
-  if (mythStatementEl && mythBtnMyth && mythBtnFact) {
-    loadMythQuestion(currentMythIdx);
-
-    mythBtnMyth.addEventListener('click', () => handleMythAnswer(false));
-    mythBtnFact.addEventListener('click', () => handleMythAnswer(true));
-
-    function loadMythQuestion(idx) {
-      const q = MYTH_QUESTIONS[idx];
-      if (!q) return;
-      mythStatementEl.textContent = q.statement;
-      if (mythExplanationEl) mythExplanationEl.style.display = 'none';
-      if (mythProgressEl) mythProgressEl.textContent = `Question ${idx + 1} of ${MYTH_QUESTIONS.length}`;
-    }
-
-    function handleMythAnswer(userChoseFact) {
-      const q = MYTH_QUESTIONS[currentMythIdx];
-      const isCorrect = userChoseFact === q.isFact;
-
-      if (isCorrect) {
-        showToast('🎉 Correct! Excellent eco knowledge.', 'success');
-        GameState.addPoints(10, 'Quiz Answer');
-      } else {
-        showToast('❌ Not quite! Read the explanation below.', 'warning');
-      }
-
-      if (mythExplanationEl) {
-        mythExplanationEl.style.display = 'block';
-        mythExplanationEl.innerHTML = `<p><strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong> ${q.explanation}</p>`;
-      }
-
-      setTimeout(() => {
-        currentMythIdx = (currentMythIdx + 1) % MYTH_QUESTIONS.length;
-        loadMythQuestion(currentMythIdx);
-      }, 3500);
-    }
-  }
-
-  /* ==========================================================================
-     9. "What Should I Do With This Food?" Decision Tree (`quiz.html`)
-     ========================================================================== */
-  const decisionTypeSelect = document.getElementById('decision-food-type');
-  const decisionCondSelect = document.getElementById('decision-condition');
-  const decisionResultBox = document.getElementById('decision-result-box');
-
-  if (decisionTypeSelect && decisionCondSelect && decisionResultBox) {
-    const updateDecisionTree = () => {
-      const type = decisionTypeSelect.value;
-      const cond = decisionCondSelect.value;
-
-      let recTitle = '🍽️ Action Recommendation';
-      let recText = 'Store properly or consume soon.';
-
-      if (cond === 'questionable') {
-        recTitle = '🗑️ DISPOSE SAFELY (Safety First)';
-        recText = 'If food shows signs of spoilage, unusual odor, or mold, do not risk foodborne illness. Follow food safety rules: When in doubt, throw it out.';
-      } else if (cond === 'excess' && (type === 'unopened_pantry' || type === 'fresh_produce')) {
-        recTitle = '🤝 CONSIDER RESPONSIBLE SHARING / DONATION';
-        recText = 'Your wholesome surplus food can nourish neighbors or community food pantries! Ensure items are sealed and within safe limits.';
-      } else if (type === 'scraps_peels' || cond === 'spooled_scraps') {
-        recTitle = '♻️ COMPOST IN BIODEGRADABLE BIN';
-        recText = 'Fruit peels, vegetable trimmings, and coffee grounds make rich organic compost. Divert from landfill!';
-      } else if (cond === 'fresh_leftover') {
-        recTitle = '❄️ REFRIGERATE OR FREEZE IMMEDIATELY';
-        recText = 'Store leftovers in airtight containers within 2 hours of cooking. Consume within 3-4 days or freeze for later.';
-      }
-
-      decisionResultBox.innerHTML = `
-        <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 8px;">${recTitle}</h4>
-        <p style="color: var(--text-muted); font-size: 0.95rem;">${recText}</p>
-      `;
-    };
-
-    decisionTypeSelect.addEventListener('change', updateDecisionTree);
-    decisionCondSelect.addEventListener('change', updateDecisionTree);
-    updateDecisionTree();
-  }
-
-  /* ==========================================================================
-     10. Daily Eco Challenge Card (`achievements.html`)
-     ========================================================================== */
-  const completeChallengeBtn = document.getElementById('complete-challenge-btn');
-  const challengeDateKey = new Date().toISOString().slice(0, 10);
-
-  if (completeChallengeBtn) {
-    if (GameState.isChallengeCompleted(challengeDateKey)) {
-      completeChallengeBtn.textContent = '🎉 Completed Today!';
-      completeChallengeBtn.disabled = true;
-      completeChallengeBtn.className = 'btn btn-secondary';
-    }
-
-    completeChallengeBtn.addEventListener('click', () => {
-      GameState.setChallengeCompleted(challengeDateKey);
-      GameState.addPoints(15, 'Daily Challenge Completed');
-      completeChallengeBtn.textContent = '🎉 Completed Today!';
-      completeChallengeBtn.disabled = true;
-      completeChallengeBtn.className = 'btn btn-secondary';
-      triggerConfetti();
-    });
-  }
-
-  /* ==========================================================================
-     11. Personal Impact Dashboard Calculator (`impact.html`)
-     ========================================================================== */
-  const impactForm = document.getElementById('impact-calculator-form');
-  if (impactForm) {
-    const roleSelect = document.getElementById('calc-role-select');
-    const countInput = document.getElementById('calc-count-input');
-    const wasteSlider = document.getElementById('calc-waste-slider');
-    const wasteBadge = document.getElementById('calc-waste-badge');
-
-    const gaugeFill = document.getElementById('gauge-fill-circle');
-    const gaugeVal = document.getElementById('gauge-val-text');
-    const gaugeLbl = document.getElementById('gauge-lbl-text');
-
-    const statFoodSaved = document.getElementById('stat-food-saved');
-    const statMoneySaved = document.getElementById('stat-money-saved');
-    const statCo2Saved = document.getElementById('stat-co2-saved');
-    const statMealsShared = document.getElementById('stat-meals-shared');
-
-    if (wasteSlider && wasteBadge) {
-      wasteSlider.addEventListener('input', (e) => {
-        wasteBadge.textContent = `${e.target.value} kg / week`;
-        calculateImpact();
-      });
-    }
-
-    if (roleSelect) roleSelect.addEventListener('change', calculateImpact);
-    if (countInput) countInput.addEventListener('change', calculateImpact);
-
-    function calculateImpact() {
-      const role = roleSelect ? roleSelect.value : 'student';
-      const count = countInput ? parseFloat(countInput.value) || 1 : 1;
-      const rawWaste = wasteSlider ? parseFloat(wasteSlider.value) : 2.5;
-
-      let multiplier = 1;
-      if (role === 'kitchen') multiplier = 5.0;
-      if (role === 'janitor') multiplier = 8.0;
-
-      const weeklyWaste = rawWaste * Math.sqrt(count) * multiplier;
-      const annualWasteSaved = Math.round(weeklyWaste * 52 * 0.4); // ~40% reduction target
-      const annualMoneySaved = Math.round(annualWasteSaved * 150); // ₱150 per kg food value
-      const annualCo2 = Math.round(annualWasteSaved * 2.5); // 2.5 kg CO2e per kg food waste
-      const mealsShared = Math.round(annualWasteSaved * 2.2); // ~2.2 meals per kg
-
-      if (gaugeVal) gaugeVal.textContent = `${weeklyWaste.toFixed(1)} kg`;
-      if (statFoodSaved) statFoodSaved.textContent = `${annualWasteSaved.toLocaleString()} kg`;
-      if (statMoneySaved) statMoneySaved.textContent = `₱${annualMoneySaved.toLocaleString()}`;
-      if (statCo2Saved) statCo2Saved.textContent = `${annualCo2.toLocaleString()} kg`;
-      if (statMealsShared) statMealsShared.textContent = `${mealsShared.toLocaleString()}`;
-
-      if (gaugeFill) {
-        const maxScale = 20 * multiplier;
-        const ratio = Math.min(1, weeklyWaste / maxScale);
-        const offset = 440 - (440 * ratio);
-        gaugeFill.style.strokeDashoffset = offset;
-
-        if (weeklyWaste < 4 * multiplier) {
-          gaugeFill.style.stroke = "#10B981"; // Green
-          if (gaugeLbl) gaugeLbl.textContent = "Low Impact";
-        } else if (weeklyWaste < 10 * multiplier) {
-          gaugeFill.style.stroke = "#FACC15"; // Amber
-          if (gaugeLbl) gaugeLbl.textContent = "Moderate Impact";
-        } else {
-          gaugeFill.style.stroke = "#FB7185"; // Coral/Red
-          if (gaugeLbl) gaugeLbl.textContent = "High Impact";
-        }
-      }
-    }
-
-    calculateImpact();
   }
 
   /* Initialize UI State on Page Load */

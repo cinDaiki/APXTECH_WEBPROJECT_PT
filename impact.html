@@ -16,12 +16,12 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo-box">
-        <span style="font-size: 1.4rem;">🌱</span>
+        <img src="images/acd.jfif" alt="ACD Logo" class="logo-img" width="34" height="34">
         <span>Food Reducer <span class="logo-highlight">&amp; Sharing</span></span>
         <span class="logo-badge">ACD</span>
       </a>
 
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu">
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
         ☰ Menu
       </button>
 
@@ -54,22 +54,22 @@
     <section class="container" style="margin-bottom: 60px;">
       <div class="impact-stats-grid">
         <div class="stat-card">
-          <div class="stat-val">120 kg</div>
+          <div class="stat-val" id="stat-food-saved">120 kg</div>
           <div class="stat-label">🍚 Estimated Food Saved</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-val">₱18,000</div>
+          <div class="stat-val" id="stat-money-saved">₱18,000</div>
           <div class="stat-label">💰 Estimated Money Saved</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-val">300 kg</div>
+          <div class="stat-val" id="stat-co2-saved">300 kg</div>
           <div class="stat-label">🌱 Estimated CO₂e Reduced</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-val">240</div>
+          <div class="stat-val" id="stat-meals-shared">240</div>
           <div class="stat-label">🤝 Meals Shared</div>
         </div>
       </div>
@@ -84,11 +84,11 @@
         <div style="margin: 28px 0; position: relative; display: inline-block;">
           <svg viewBox="0 0 160 160" style="width: 180px; height: 180px; transform: rotate(-90deg);">
             <circle cx="80" cy="80" r="70" fill="none" stroke="var(--background)" stroke-width="14" />
-            <circle cx="80" cy="80" r="70" fill="none" stroke="var(--primary)" stroke-width="14" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="88" />
+            <circle id="gauge-fill-circle" cx="80" cy="80" r="70" fill="none" stroke="var(--primary)" stroke-width="14" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="88" />
           </svg>
           <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-            <div style="font-size: 1.8rem; font-weight: 800;">80%</div>
-            <div style="font-size: 0.8rem; color: var(--muted);">Low Waste Impact</div>
+            <div style="font-size: 1.8rem; font-weight: 800;" id="gauge-val-text">80%</div>
+            <div style="font-size: 0.8rem; color: var(--muted);" id="gauge-lbl-text">Low Waste Impact</div>
           </div>
         </div>
 
@@ -134,6 +134,7 @@
     </div>
   </footer>
 
+  <script src="js/script.js"></script>
 </body>
 
 </html>

@@ -16,12 +16,12 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo-box">
-        <span style="font-size: 1.4rem;">🌱</span>
+        <img src="images/acd.jfif" alt="ACD Logo" class="logo-img" width="34" height="34">
         <span>Food Reducer <span class="logo-highlight">&amp; Sharing</span></span>
         <span class="logo-badge">ACD</span>
       </a>
 
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu">
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
         ☰ Menu
       </button>
 
@@ -75,7 +75,7 @@
       <div class="role-cards-grid">
         
         <!-- Role 1: Student -->
-        <article class="role-card">
+        <article class="role-card" data-role="student">
           <div>
             <div class="role-icon-box">🎓</div>
             <h3>Student</h3>
@@ -92,7 +92,7 @@
         </article>
 
         <!-- Role 2: Kitchen Staff -->
-        <article class="role-card">
+        <article class="role-card" data-role="kitchen">
           <div>
             <div class="role-icon-box">👨‍🍳</div>
             <h3>Kitchen Staff</h3>
@@ -109,7 +109,7 @@
         </article>
 
         <!-- Role 3: Janitor -->
-        <article class="role-card">
+        <article class="role-card" data-role="janitor">
           <div>
             <div class="role-icon-box">🧹</div>
             <h3>Janitor / Ops</h3>
@@ -126,7 +126,7 @@
         </article>
 
         <!-- Role 4: Community -->
-        <article class="role-card">
+        <article class="role-card" data-role="community">
           <div>
             <div class="role-icon-box">🤝</div>
             <h3>Community</h3>
@@ -146,7 +146,7 @@
     </section>
 
     <!-- The Food Waste Journey -->
-    <section class="container" style="margin-bottom: 60px;">
+    <section class="container" id="food-journey-section" style="margin-bottom: 60px;">
       <div class="journey-container">
         <div class="section-header" style="margin-bottom: 24px;">
           <span class="section-tag">Lifecycle Process</span>
@@ -155,41 +155,47 @@
         </div>
 
         <div class="journey-steps-track">
-          <div class="journey-step-item active-step">
+          <div class="journey-step-item active-step" data-stage="buy">
             <div class="journey-step-icon">🛒</div>
             <div class="journey-step-name">1. BUY</div>
             <p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Shop with list &amp; plan</p>
           </div>
 
-          <div class="journey-step-item">
+          <div class="journey-step-item" data-stage="prepare">
             <div class="journey-step-icon">🥘</div>
             <div class="journey-step-name">2. PREPARE</div>
             <p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Smart batch prep</p>
           </div>
 
-          <div class="journey-step-item">
+          <div class="journey-step-item" data-stage="eat">
             <div class="journey-step-icon">🍴</div>
             <div class="journey-step-name">3. EAT</div>
             <p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Mindful portioning</p>
           </div>
 
-          <div class="journey-step-item">
+          <div class="journey-step-item" data-stage="store">
             <div class="journey-step-icon">📦</div>
             <div class="journey-step-name">4. STORE</div>
             <p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Optimal storage zones</p>
           </div>
 
-          <div class="journey-step-item">
+          <div class="journey-step-item" data-stage="share">
             <div class="journey-step-icon">🤝</div>
             <div class="journey-step-name">5. SHARE</div>
             <p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Donate wholesome extra</p>
           </div>
 
-          <div class="journey-step-item">
+          <div class="journey-step-item" data-stage="compost">
             <div class="journey-step-icon">♻️</div>
             <div class="journey-step-name">6. COMPOST</div>
             <p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Organic scrap compost</p>
           </div>
+        </div>
+
+        <div style="padding: 20px; background: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+          <h4 id="journey-detail-title" style="color: var(--primary);">🛒 BUY — Shop with Intention</h4>
+          <p id="journey-detail-text" style="margin: 8px 0 14px; font-size: 0.95rem;">Create a meal plan and grocery list before shopping. Check your pantry and fridge first so you only buy ingredients you truly need.</p>
+          <a href="about.html#planning" class="btn btn-secondary" id="journey-detail-cta">Explore Meal Planning Guide →</a>
         </div>
       </div>
     </section>
@@ -278,7 +284,7 @@
         
         <div class="preview-card">
           <div>
-            <span class="week4-badge">Week 4 Interactive System</span>
+            <span class="week4-badge">Interactive System</span>
             <div style="font-size: 2.2rem; margin-bottom: 8px;">♻️</div>
             <h3>Sort It! Mini-Game</h3>
             <p>Test your waste segregation skills by sorting food peels, bottles, and packaging into correct category bins.</p>
@@ -288,7 +294,7 @@
 
         <div class="preview-card">
           <div>
-            <span class="week4-badge">Week 4 Interactive System</span>
+            <span class="week4-badge">Interactive System</span>
             <div style="font-size: 2.2rem; margin-bottom: 8px;">🧠</div>
             <h3>Myth or Fact? Quiz</h3>
             <p>Challenge what you know about expiration dates, freezing food, and environmental landfill emissions.</p>
@@ -298,7 +304,7 @@
 
         <div class="preview-card">
           <div>
-            <span class="week4-badge">Week 4 Interactive System</span>
+            <span class="week4-badge">Interactive System</span>
             <div style="font-size: 2.2rem; margin-bottom: 8px;">🧊</div>
             <h3>Storage Challenge</h3>
             <p>Discover where different food items belong to double their freshness and prevent food waste.</p>
@@ -308,7 +314,7 @@
 
         <div class="preview-card">
           <div>
-            <span class="week4-badge">Week 4 Interactive System</span>
+            <span class="week4-badge">Interactive System</span>
             <div style="font-size: 2.2rem; margin-bottom: 8px;">🍚</div>
             <h3>What Should I Do? Advisor</h3>
             <p>Explore responsible, conservative options for leftover, excess, or questionable food items.</p>
@@ -381,7 +387,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="logo-box">
-            <span>🌱</span>
+            <img src="images/acd.jfif" alt="ACD Logo" class="logo-img" width="34" height="34">
             <span>Food Reducer <span class="logo-highlight">&amp; Sharing</span></span>
           </a>
           <p>An educational web project for Assumption College of Davao (ACD) advocating for Care for Creation &amp; Social Responsibility.</p>
@@ -410,11 +416,12 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 Assumption College of Davao (ACD) — Week 3 Frontend Web Development Submission.</p>
+        <p>&copy; 2026 Assumption College of Davao (ACD) — Web Development Project.</p>
       </div>
     </div>
   </footer>
 
+  <script src="js/script.js"></script>
 </body>
 
 </html>
