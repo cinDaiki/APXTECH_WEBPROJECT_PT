@@ -143,6 +143,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .header-inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -813,12 +814,51 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 /* Breakpoint 2: Tablet (768px to 1023px) */
 @media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
   .hamburger-btn {
     display: block;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--white);
+    border-bottom: 3px solid var(--primary);
+    padding: 16px 24px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+  }
+
+  .nav-links.active {
+    display: flex !important;
+    animation: slideDown 0.25s ease-out forwards;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: var(--light-green);
+    color: var(--dark-green);
   }
 
   .mobile-bottom-nav {
