@@ -133,7 +133,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
    4. NAVIGATION (FLEXBOX)
    ========================================================================== */
 .site-header {
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 100;
   background: var(--card-bg-glass);
@@ -822,43 +822,59 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .nav-links {
     display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 1px);
     left: 0;
     width: 100%;
-    background: var(--white);
-    border-bottom: 3px solid var(--primary);
-    padding: 16px 24px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    background: #ffffff;
+    border-top: 3px solid #10B981;
+    border-bottom: 3px solid #10B981;
+    padding: 12px 20px 20px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
     z-index: 9999;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     list-style: none;
+    margin: 0;
   }
 
   .nav-links.active {
     display: flex !important;
-    animation: slideDown 0.25s ease-out forwards;
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   .nav-links li {
     width: 100%;
+    padding: 0;
+    margin: 0;
   }
 
   .nav-links a {
-    display: block;
-    padding: 12px 16px;
-    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 10px;
     font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--text);
+    font-weight: 700;
+    color: #16332A;
     text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease;
+    background: transparent;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    border: 2px solid transparent;
+    letter-spacing: 0.01em;
   }
 
-  .nav-links a:hover,
+  .nav-links a:hover {
+    background: #D1FAE5;
+    color: #064E3B;
+    border-color: #10B981;
+    transform: translateX(4px);
+  }
+
   .nav-links a.active {
-    background: var(--light-green);
-    color: var(--dark-green);
+    background: #10B981;
+    color: #ffffff;
+    border-color: #059669;
   }
 
   .mobile-bottom-nav {
@@ -921,6 +937,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
   .btn {
     width: 100%;
+  }
+}
+
+/* ==========================================================================
+   MOBILE MENU SLIDE-DOWN ANIMATION
+   ========================================================================== */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
