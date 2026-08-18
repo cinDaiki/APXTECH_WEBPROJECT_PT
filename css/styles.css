@@ -941,17 +941,369 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 /* ==========================================================================
-   MOBILE MENU SLIDE-DOWN ANIMATION
+   INTERACTIVE GAMES & QUIZ SYSTEM STYLES
    ========================================================================== */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.game-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 4vw, 36px);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.game-score-pill {
+  background: linear-gradient(135deg, var(--light-green), #A7F3D0);
+  color: var(--dark-green);
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.game-streak-pill {
+  background: #FEF3C7;
+  color: #92400E;
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid #F59E0B;
+  display: none;
+  animation: pulseGlow 1.2s infinite alternate;
+}
+
+.sort-items-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 80px;
+  padding: 18px;
+  background: var(--background);
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--border-color);
+  margin-bottom: 24px;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition-fast);
+}
+
+.sort-item-pill {
+  background: var(--white);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.sort-item-pill:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+  border-color: var(--primary);
+}
+
+.sort-item-pill.selected {
+  border-color: var(--primary);
+  background: var(--light-green);
+  color: var(--dark-green);
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3), 0 10px 24px rgba(16, 185, 129, 0.25);
+  animation: itemBounce 0.4s ease;
+}
+
+.sort-item-pill.sorted-out {
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.bins-interactive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.bin-card {
+  padding: 20px 14px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  background: var(--card-bg);
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.bin-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+.bin-card:active {
+  transform: scale(0.98);
+}
+
+.bin-biodegradable {
+  border-color: #10B981;
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.05), transparent);
+}
+.bin-biodegradable:hover {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: #059669;
+}
+
+.bin-recyclable {
+  border-color: #38BDF8;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05), transparent);
+}
+.bin-recyclable:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: #0284C7;
+}
+
+.bin-residual {
+  border-color: #64748B;
+  background: linear-gradient(180deg, rgba(100, 116, 139, 0.05), transparent);
+}
+.bin-residual:hover {
+  background: rgba(100, 116, 139, 0.12);
+  border-color: #334155;
+}
+
+.bin-special {
+  border-color: #FB7185;
+  background: linear-gradient(180deg, rgba(251, 113, 133, 0.05), transparent);
+}
+.bin-special:hover {
+  background: rgba(251, 113, 133, 0.12);
+  border-color: #E11D48;
+}
+
+.bin-card.flash-success {
+  animation: flashGreen 0.6s ease;
+}
+
+.bin-card.flash-error {
+  animation: shakeRed 0.5s ease;
+}
+
+.bin-badge-count {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--background);
+  color: var(--muted);
+}
+
+/* Quiz Progress Bar */
+.quiz-progress-track {
+  width: 100%;
+  height: 10px;
+  background: var(--background);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin: 16px 0 24px;
+  border: 1px solid var(--border-color);
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--lime));
+  border-radius: var(--radius-full);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quiz-question-box {
+  background: var(--background);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border-color);
+}
+
+.quiz-options-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+.quiz-action-btn {
+  padding: 16px 36px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 160px;
+  justify-content: center;
+}
+
+.quiz-btn-myth {
+  background: #FEE2E2;
+  color: #991B1B;
+  border-color: #F87171;
+}
+.quiz-btn-myth:hover {
+  background: #FECACA;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.2);
+}
+
+.quiz-btn-fact {
+  background: #DCFCE7;
+  color: #166534;
+  border-color: #4ADE80;
+}
+.quiz-btn-fact:hover {
+  background: #BBF7D0;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.2);
+}
+
+.quiz-feedback-box {
+  padding: 20px;
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
+  margin-top: 20px;
+  display: none;
+  animation: slideDown 0.3s ease;
+}
+
+/* Storage Game Interactive */
+.storage-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.storage-item-card {
+  padding: 14px 10px;
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.storage-item-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.storage-item-card.selected {
+  border-color: var(--primary);
+  background: var(--light-green);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.storage-item-card.resolved {
+  opacity: 0.55;
+  pointer-events: none;
+  border-color: #10B981;
+  background: #F0FDF4;
+}
+
+.storage-zones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.storage-zone-card {
+  padding: 18px 12px;
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--border-color);
+  text-align: center;
+  background: var(--background);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.storage-zone-card:hover {
+  border-color: var(--primary);
+  background: var(--light-green);
+  transform: translateY(-3px);
+}
+
+/* Recipe Generator Output */
+.recipe-card-result {
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-top: 20px;
+  box-shadow: var(--shadow-md);
+  animation: slideDown 0.3s ease;
+}
+
+/* Keyframe Animations */
+@keyframes itemBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15) translateY(-6px); }
+  100% { transform: scale(1.08) translateY(-4px); }
+}
+
+@keyframes flashGreen {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); background: #A7F3D0; box-shadow: 0 0 24px rgba(16, 185, 129, 0.5); }
+}
+
+@keyframes shakeRed {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
 }
 
 /* Accessibility: Prefers Reduced Motion */
